@@ -15,6 +15,7 @@
 		4897BB621CC1376300AA01D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4897BB601CC1376300AA01D0 /* LaunchScreen.storyboard */; };
 		4897BB6D1CC1376300AA01D0 /* ADQRScanViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4897BB6C1CC1376300AA01D0 /* ADQRScanViewExampleTests.m */; };
 		4897BB781CC1376300AA01D0 /* ADQRScanViewExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4897BB771CC1376300AA01D0 /* ADQRScanViewExampleUITests.m */; };
+		AC8676001CE1A3CD0038534F /* QRcodeScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8675FE1CE1A3CD0038534F /* QRcodeScanView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		4897BB731CC1376300AA01D0 /* ADQRScanViewExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ADQRScanViewExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4897BB771CC1376300AA01D0 /* ADQRScanViewExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADQRScanViewExampleUITests.m; sourceTree = "<group>"; };
 		4897BB791CC1376300AA01D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC8675FD1CE1A3CD0038534F /* QRcodeScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRcodeScanView.h; sourceTree = "<group>"; };
+		AC8675FE1CE1A3CD0038534F /* QRcodeScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRcodeScanView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		4897BB511CC1376300AA01D0 /* ADQRScanViewExample */ = {
 			isa = PBXGroup;
 			children = (
+				AC8675FB1CE1A3CC0038534F /* QRcodeScanView */,
 				4897BB551CC1376300AA01D0 /* AppDelegate.h */,
 				4897BB561CC1376300AA01D0 /* AppDelegate.m */,
 				4897BB581CC1376300AA01D0 /* ViewController.h */,
@@ -138,6 +142,15 @@
 				4897BB791CC1376300AA01D0 /* Info.plist */,
 			);
 			path = ADQRScanViewExampleUITests;
+			sourceTree = "<group>";
+		};
+		AC8675FB1CE1A3CC0038534F /* QRcodeScanView */ = {
+			isa = PBXGroup;
+			children = (
+				AC8675FD1CE1A3CD0038534F /* QRcodeScanView.h */,
+				AC8675FE1CE1A3CD0038534F /* QRcodeScanView.m */,
+			);
+			path = QRcodeScanView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4897BB5A1CC1376300AA01D0 /* ViewController.m in Sources */,
+				AC8676001CE1A3CD0038534F /* QRcodeScanView.m in Sources */,
 				4897BB571CC1376300AA01D0 /* AppDelegate.m in Sources */,
 				4897BB541CC1376300AA01D0 /* main.m in Sources */,
 			);
@@ -412,6 +426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ADQRScanViewExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinlinbao.test.ADQRScanViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -423,6 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ADQRScanViewExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jinlinbao.test.ADQRScanViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +512,7 @@
 				4897BB7E1CC1376300AA01D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4897BB7F1CC1376300AA01D0 /* Build configuration list for PBXNativeTarget "ADQRScanViewExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +521,7 @@
 				4897BB811CC1376300AA01D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4897BB821CC1376300AA01D0 /* Build configuration list for PBXNativeTarget "ADQRScanViewExampleUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +530,7 @@
 				4897BB841CC1376300AA01D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
