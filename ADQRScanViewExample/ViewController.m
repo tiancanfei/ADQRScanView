@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "QRcodeScanView.h"
 
-@interface ViewController ()
+@interface ViewController ()<QRcodeScanViewDelegate>
 
 /**扫描框*/
 @property (weak, nonatomic) QRcodeScanView *scanView;
@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     QRcodeScanView *scanView = [QRcodeScanView scanViewWithFrame:self.view.bounds visibleRect:CGRectMake(10, 60, 300, 200)];
+    scanView.delegate = self;
     self.scanView = scanView;
     [self.view addSubview:scanView];
 }
@@ -35,5 +36,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)scanView:(QRcodeScanView *)scanView didFinishedScanWithCodeString:(NSString *)codeString
+{
+    NSLog(@"%@",codeString);
+}
+
 
 @end
