@@ -175,7 +175,7 @@
     CALayer *coverLayer = [[CALayer alloc] init];
     self.coverLayer = coverLayer;
     coverLayer.frame = self.bounds;
-    coverLayer.backgroundColor = [self.previewBackgroundColor colorWithAlphaComponent:kBackgroundOpacity].CGColor;
+    coverLayer.backgroundColor = [kScanViewBackgroundColor colorWithAlphaComponent:kBackgroundOpacity].CGColor;
     [self.layer addSublayer:coverLayer];
     
     UIBezierPath *outerBorderPath = [UIBezierPath bezierPathWithRect:self.bounds];
