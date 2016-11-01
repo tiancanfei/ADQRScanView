@@ -27,6 +27,9 @@
 /**是否已经设置背景*/
 @property (nonatomic, assign)  BOOL previewBackgroundSetted;
 
+/**遮盖背景图层*/
+@property (nonatomic, strong) CALayer *coverLayer;
+
 /**占位*/
 @property (weak, nonatomic) UIView *cover;
 /**菊花*/
@@ -35,6 +38,9 @@
 @end
 
 @implementation QRcodeScanView
+{
+    UIColor *_previewBackgroundColor;
+}
 
 + (instancetype)scanViewWithFrame:(CGRect)frame visibleRect:(CGRect)visibleRect
 {
@@ -170,17 +176,14 @@
     }
     self.previewBackgroundSetted = YES;
     CALayer *coverLayer = [[CALayer alloc] init];
+    self.coverLayer = coverLayer;
     coverLayer.frame = self.bounds;
-    coverLayer.backgroundColor = [kScanViewBackgroundColor colorWithAlphaComponent:kBackgroundOpacity].CGColor;
-    [self.preview addSublayer:coverLayer];
+    coverLayer.backgroundColor = [self.previewBackgroundColor colorWithAlphaComponent:kBackgroundOpacity].CGColor;
+    [self.layer addSublayer:coverLayer];
     
     UIBezierPath *outerBorderPath = [UIBezierPath bezierPathWithRect:self.bounds];
     
-    UIBezierPath *innderBorderPath = [UIBezierPath bezierPath];
-    [innderBorderPath moveToPoint:self.visibleRect.origin];
-    [innderBorderPath addLineToPoint:CGPointMake(self.visibleRect.origin.x, self.visibleRect.origin.y + self.visibleRect.size.height)];
-    [innderBorderPath addLineToPoint:CGPointMake(self.visibleRect.origin.x + self.visibleRect.size.width, self.visibleRect.origin.y + self.visibleRect.size.height)];
-    [innderBorderPath addLineToPoint:CGPointMake(self.visibleRect.origin.x + self.visibleRect.size.width, self.visibleRect.origin.y)];
+    UIBezierPath *innderBorderPath = [UIBezierPath bezierPathWithRect:self.visibleRect];
     
     [outerBorderPath appendPath:innderBorderPath];
     
@@ -188,7 +191,21 @@
     
     visibleRectLayer.path = outerBorderPath.CGPath;
     
+    visibleRectLayer.fillRule = kCAFillRuleEvenOdd;
+    
     coverLayer.mask = visibleRectLayer;
+}
+
+- (UIColor *)previewBackgroundColor
+{
+    return _previewBackgroundColor ? _previewBackgroundColor : kScanViewBackgroundColor;
+}
+
+- (void)setPreviewBackgroundColor:(UIColor *)previewBackgroundColor
+{
+    _previewBackgroundColor = previewBackgroundColor;
+    
+    self.coverLayer.backgroundColor = [_previewBackgroundColor colorWithAlphaComponent:kBackgroundOpacity].CGColor;
 }
 
 - (void)layoutSubviews{

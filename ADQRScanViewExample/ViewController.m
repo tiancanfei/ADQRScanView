@@ -22,6 +22,7 @@
     [super viewDidLoad];
     QRcodeScanView *scanView = [QRcodeScanView scanViewWithFrame:self.view.bounds visibleRect:CGRectMake(10, 60, 300, 200)];
     scanView.delegate = self;
+    scanView.previewBackgroundColor = [UIColor redColor];
     self.scanView = scanView;
     [self.view addSubview:scanView];
 }

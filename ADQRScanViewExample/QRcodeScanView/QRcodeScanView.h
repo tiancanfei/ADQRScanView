@@ -23,6 +23,9 @@
 /**可视区域*/
 @property (nonatomic, assign)  CGRect visibleRect;
 
+/**背景*/
+@property (nonatomic, strong) UIColor *previewBackgroundColor;
+
 /**
  frame：控件的frame
  visibleRect：可是区域的frame
