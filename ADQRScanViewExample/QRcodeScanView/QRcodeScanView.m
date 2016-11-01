@@ -38,9 +38,6 @@
 @end
 
 @implementation QRcodeScanView
-{
-    UIColor *_previewBackgroundColor;
-}
 
 + (instancetype)scanViewWithFrame:(CGRect)frame visibleRect:(CGRect)visibleRect
 {
@@ -196,16 +193,17 @@
     coverLayer.mask = visibleRectLayer;
 }
 
-- (UIColor *)previewBackgroundColor
+- (void)setVisibleRectImage:(UIImage *)visibleRectImage
 {
-    return _previewBackgroundColor ? _previewBackgroundColor : kScanViewBackgroundColor;
+    _visibleRectImage = visibleRectImage;
+    self.scanView.image = _visibleRectImage;
 }
 
 - (void)setPreviewBackgroundColor:(UIColor *)previewBackgroundColor
 {
     _previewBackgroundColor = previewBackgroundColor;
     
-    self.coverLayer.backgroundColor = [_previewBackgroundColor colorWithAlphaComponent:kBackgroundOpacity].CGColor;
+    self.coverLayer.backgroundColor = _previewBackgroundColor.CGColor;
 }
 
 - (void)layoutSubviews{

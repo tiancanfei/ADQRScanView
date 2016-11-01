@@ -23,8 +23,15 @@
 /**可视区域*/
 @property (nonatomic, assign)  CGRect visibleRect;
 
-/**背景*/
+/**背景
+ 改变背景颜色的时候推荐使用带alph值的颜色
+ [[UIColor clearColor] colorWithAlphaComponent:0]
+ */
 @property (nonatomic, strong) UIColor *previewBackgroundColor;
+
+/**可是区域背景*/
+@property (nonatomic, strong)  UIImage *visibleRectImage;
+
 
 /**
  frame：控件的frame

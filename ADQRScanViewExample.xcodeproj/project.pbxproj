@@ -16,6 +16,7 @@
 		4897BB6D1CC1376300AA01D0 /* ADQRScanViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4897BB6C1CC1376300AA01D0 /* ADQRScanViewExampleTests.m */; };
 		4897BB781CC1376300AA01D0 /* ADQRScanViewExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4897BB771CC1376300AA01D0 /* ADQRScanViewExampleUITests.m */; };
 		AC8676001CE1A3CD0038534F /* QRcodeScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8675FE1CE1A3CD0038534F /* QRcodeScanView.m */; };
+		ACD62D1C1DC89B4D00D57A9B /* shopping_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD62D1B1DC89B4D00D57A9B /* shopping_scan@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		4897BB791CC1376300AA01D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC8675FD1CE1A3CD0038534F /* QRcodeScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRcodeScanView.h; sourceTree = "<group>"; };
 		AC8675FE1CE1A3CD0038534F /* QRcodeScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRcodeScanView.m; sourceTree = "<group>"; };
+		ACD62D1B1DC89B4D00D57A9B /* shopping_scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shopping_scan@2x.png"; path = "../../scanner_ios1/scanner/scanner/Classes/Main/View/QRcodeScanView/image.bundle/shopping_scan@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				4897BB591CC1376300AA01D0 /* ViewController.m */,
 				4897BB5B1CC1376300AA01D0 /* Main.storyboard */,
 				4897BB5E1CC1376300AA01D0 /* Assets.xcassets */,
+				ACD62D1B1DC89B4D00D57A9B /* shopping_scan@2x.png */,
 				4897BB601CC1376300AA01D0 /* LaunchScreen.storyboard */,
 				4897BB631CC1376300AA01D0 /* Info.plist */,
 				4897BB521CC1376300AA01D0 /* Supporting Files */,
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4897BB621CC1376300AA01D0 /* LaunchScreen.storyboard in Resources */,
+				ACD62D1C1DC89B4D00D57A9B /* shopping_scan@2x.png in Resources */,
 				4897BB5F1CC1376300AA01D0 /* Assets.xcassets in Resources */,
 				4897BB5D1CC1376300AA01D0 /* Main.storyboard in Resources */,
 			);
