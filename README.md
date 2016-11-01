@@ -2,28 +2,48 @@
 iOS原生扫码控件，可以任意改变扫码尺寸，限制扫描范围
 # 使用办法如下
 ```
-@interface ViewController ()<ADQRcodeScanViewDelegate>
+#import "QRcodeScanView.h"
+
+@interface WMMaterialsScanAddVC ()<QRcodeScanViewDelegate>
+
+/**扫描框*/
+@property (nonatomic, strong) QRcodeScanView *scanView;
 
 @end
 
-@implementation ViewController
+@implementation WMMaterialsScanAddVC
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    ADQRcodeScanView *scanView = [[ADQRcodeScanView alloc] initWithFrame:self.view.bounds];
-    scanView.visibleRect = CGRectMake(20, 90, 200, 300);
-    scanView.delegate = self;
-    [self.view addSubview:scanView];
+    [super viewDidLoad];    
+    [self.view addSubview:self.scanView];
 }
 
-#pragma mark - ADQRcodeScanViewDelegate
-- (void)scanView:(ADQRcodeScanView *)scanView didFinishedScanWithCodeString:(NSString *)codeString
+- (void)viewDidAppear:(BOOL)animated
 {
-    [scanView stopScan];
-    NSLog(@"%@",codeString);
-    [scanView startScan];
+    [super viewDidAppear:animated];
+    [self.scanView startScan];
 }
+
+#pragma mark setter getter
+
+- (QRcodeScanView *)scanView
+{
+    if (!_scanView) {
+        _scanView = [[QRcodeScanView alloc] initWithFrame:self.view.bounds];
+        _scanView.visibleRect = CGRectMake(20, 90, 200, 300);
+        _scanView.delegate = self;
+    }
+    return _scanView;
+}
+
+#pragma mark - 代理
+
+#pragma mark - ADQRcodeScanViewDelegate
+
+- (void)scanView:(QRcodeScanView *)scanView didFinishedScanWithCodeString:(NSString *)codeString
+{
+    MyLog(@"%@",codeString);
+}
+
 ```
 
