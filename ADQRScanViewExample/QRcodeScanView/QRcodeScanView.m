@@ -101,6 +101,7 @@
     // Preview
     self.preview =[AVCaptureVideoPreviewLayer layerWithSession:self.session];
     self.preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    self.preview.frame = self.bounds;
     [self.layer insertSublayer:self.preview atIndex:0];
 }
 
@@ -113,10 +114,6 @@
     }
     
     self.scanView.frame = _visibleRect;
-    
-    CGRect rectOfInterest = [self.preview metadataOutputRectOfInterestForRect:_visibleRect];
-    
-    [self.output setRectOfInterest:rectOfInterest];
     
     [self setPreviewBackground];
     
@@ -160,6 +157,10 @@
     }
     
     [self.session startRunning];
+    
+    CGRect rectOfInterest = [self.preview metadataOutputRectOfInterestForRect:self.visibleRect];
+    
+    [self.output setRectOfInterest:rectOfInterest];
 }
 
 - (void)stopScan{
@@ -209,9 +210,9 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    self.visibleRect = self.visibleRect;
-    
-    self.preview.frame = self.bounds;
+//    self.visibleRect = self.visibleRect;
+//    
+//    self.preview.frame = self.bounds;
     
     self.cover.frame = self.bounds;
 }
