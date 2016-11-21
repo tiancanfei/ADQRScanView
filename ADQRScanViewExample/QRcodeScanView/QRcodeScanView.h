@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    QRcodeScanViewScanLineAnimaitonStyleNone,
+    QRcodeScanViewScanLineAnimaitonStyleNormal
+} QRcodeScanViewScanLineAnimaitonStyle;
+
 @class QRcodeScanView;
 
 @protocol QRcodeScanViewDelegate <NSObject>
@@ -29,9 +34,20 @@
  */
 @property (nonatomic, strong) UIColor *previewBackgroundColor;
 
-/**可是区域背景*/
+/**可视区域背景图片*/
 @property (nonatomic, strong)  UIImage *visibleRectImage;
 
+/**可视区域区域(默认与可视区域相同，如果需要微调请设置)*/
+@property (nonatomic, assign) CGRect visibleImageViewFrame;
+
+/**扫描线图片*/
+@property (nonatomic, strong) UIImage *scanLineImage;
+
+/**扫描线 (默认是剧中的，如果要做动画或者微调，请设置)*/
+@property (nonatomic, assign) CGRect scanLineImageViewFrame;
+
+/**扫描线动画模式*/
+@property (nonatomic, assign) QRcodeScanViewScanLineAnimaitonStyle scanLineAnimaitonStyle;
 
 /**
  frame：控件的frame

@@ -16,6 +16,8 @@
 #define kScreenW [UIScreen mainScreen].bounds.size.width
 #define kScreenH [UIScreen mainScreen].bounds.size.height
 
+#define kScanLineAnimationDuration 0.5
+
 @interface QRcodeScanView()<AVCaptureMetadataOutputObjectsDelegate>
 
 @property (strong, nonatomic) AVCaptureDevice * device;
@@ -23,9 +25,12 @@
 @property (strong, nonatomic) AVCaptureMetadataOutput * output;
 @property (strong, nonatomic) AVCaptureSession * session;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * preview;
-@property (nonatomic, weak) UIImageView *scanView;
 /**是否已经设置背景*/
 @property (nonatomic, assign)  BOOL previewBackgroundSetted;
+@property (nonatomic, weak) UIImageView *visibleImageView;
+
+/**扫描线*/
+@property (nonatomic, strong) UIImageView *scanLineImageView;
 
 /**遮盖背景图层*/
 @property (nonatomic, strong) CALayer *coverLayer;
@@ -35,6 +40,12 @@
 /**菊花*/
 @property (weak, nonatomic) UIActivityIndicatorView *refrshView;
 
+/**定时器*/
+@property (nonatomic, strong) NSTimer *scanLineAnimationTimer;
+
+/***/
+@property (nonatomic, strong) CADisplayLink *displayLink;
+
 @end
 
 @implementation QRcodeScanView
@@ -43,6 +54,7 @@
 {
     QRcodeScanView *scanView = [[self alloc] initWithFrame:frame];
     scanView.visibleRect = visibleRect;
+    scanView.scanLineAnimaitonStyle = QRcodeScanViewScanLineAnimaitonStyleNone;
     return scanView;
 }
 
@@ -55,9 +67,9 @@
 }
 
 - (void)setupScanView{
-    UIImageView *scanView = [[UIImageView alloc] init];
-    self.scanView = scanView;
-    [self addSubview:scanView];
+    UIImageView *visibleImageView = [[UIImageView alloc] init];
+    self.visibleImageView = visibleImageView;
+    [self addSubview:visibleImageView];
     
     UIView *cover = [[UIView alloc] init];
     cover.backgroundColor = kScanViewBackgroundColor;
@@ -105,6 +117,33 @@
     [self.layer insertSublayer:self.preview atIndex:0];
 }
 
+- (void)setScanLineAnimaitonStyle:(QRcodeScanViewScanLineAnimaitonStyle)scanLineAnimaitonStyle
+{
+    _scanLineAnimaitonStyle = scanLineAnimaitonStyle;
+    if (_scanLineAnimaitonStyle == QRcodeScanViewScanLineAnimaitonStyleNormal)
+    {
+        CGFloat w = self.visibleRect.size.width;
+        CGFloat h = _scanLineImage.size.height;
+        CGFloat y = self.visibleRect.origin.y;
+        CGFloat x = self.visibleRect.origin.x;
+        self.scanLineImageViewFrame = CGRectMake(x, y, w, h);
+        CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateScanLineViewLayout)];
+        self.displayLink = displayLink;
+        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    }
+}
+
+- (void)updateScanLineViewLayout
+{
+    CGFloat step = self.visibleRect.size.height / (60 / kScanLineAnimationDuration);
+    
+    CGRect frame = self.scanLineImageView.frame;
+    
+    frame.origin.y = (frame.origin.y > CGRectGetMaxY(self.visibleRect) - frame.size.height) ? self.visibleRect.origin.y : frame.origin.y + step;
+
+    self.scanLineImageView.frame = frame;
+}
+
 - (void)setVisibleRect:(CGRect)visibleRect
 {
     _visibleRect = visibleRect;
@@ -113,11 +152,11 @@
         _visibleRect = self.bounds;
     }
     
-    self.scanView.frame = _visibleRect;
+    self.visibleImageView.frame = _visibleRect;
     
     [self setPreviewBackground];
     
-    CGPoint refreshViewCenter = [self.cover convertPoint:self.scanView.center fromView:self];
+    CGPoint refreshViewCenter = [self.cover convertPoint:self.visibleImageView.center fromView:self];
     
     self.refrshView.center = refreshViewCenter;
 }
@@ -194,10 +233,30 @@
     coverLayer.mask = visibleRectLayer;
 }
 
+- (void)setScanLineImage:(UIImage *)scanLineImage
+{
+    _scanLineImage = scanLineImage;
+    if (!self.scanLineImageView) {
+        self.scanLineImageView = [[UIImageView alloc] initWithImage:_scanLineImage];
+        CGFloat w = self.visibleRect.size.width;
+        CGFloat h = _scanLineImage.size.height;
+        CGFloat x = self.visibleRect.origin.x;
+        CGFloat y =self.visibleRect.origin.y + (self.visibleRect.size.height - h) * 0.5;
+        self.scanLineImageView.frame = CGRectMake(x, y, w, h);
+        [self addSubview:self.scanLineImageView];
+    }
+}
+
+- (void)setVisibleImageViewFrame:(CGRect)visibleImageViewFrame
+{
+    _visibleImageViewFrame = visibleImageViewFrame;
+    self.visibleImageView.frame = _visibleImageViewFrame;
+}
+
 - (void)setVisibleRectImage:(UIImage *)visibleRectImage
 {
     _visibleRectImage = visibleRectImage;
-    self.scanView.image = _visibleRectImage;
+    self.visibleImageView.image = _visibleRectImage;
 }
 
 - (void)setPreviewBackgroundColor:(UIColor *)previewBackgroundColor
@@ -207,14 +266,16 @@
     self.coverLayer.backgroundColor = _previewBackgroundColor.CGColor;
 }
 
-- (void)layoutSubviews{
+- (void)layoutSubviews
+{
     [super layoutSubviews];
-    
-//    self.visibleRect = self.visibleRect;
-//    
-//    self.preview.frame = self.bounds;
-    
     self.cover.frame = self.bounds;
+}
+
+- (void)dealloc
+{
+    [self.displayLink invalidate];
+    self.displayLink = nil;
 }
 
 

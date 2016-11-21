@@ -223,7 +223,6 @@
 				TargetAttributes = {
 					4897BB4E1CC1376300AA01D0 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = WLT3JQ942D;
 					};
 					4897BB671CC1376300AA01D0 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -430,7 +429,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = WLT3JQ942D;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ADQRScanViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -443,7 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = WLT3JQ942D;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ADQRScanViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
