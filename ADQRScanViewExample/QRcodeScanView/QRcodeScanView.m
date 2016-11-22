@@ -9,10 +9,6 @@
 #import "QRcodeScanView.h"
 #import <AVFoundation/AVFoundation.h>
 
-#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
-#define kScanViewBackgroundColor RGBCOLOR(78, 78, 79)
-#define kBackgroundOpacity 0.8
-
 #define kScreenW [UIScreen mainScreen].bounds.size.width
 #define kScreenH [UIScreen mainScreen].bounds.size.height
 
@@ -40,9 +36,6 @@
 /**菊花*/
 @property (weak, nonatomic) UIActivityIndicatorView *refrshView;
 
-/**定时器*/
-@property (nonatomic, strong) NSTimer *scanLineAnimationTimer;
-
 /***/
 @property (nonatomic, strong) CADisplayLink *displayLink;
 
@@ -68,17 +61,18 @@
 
 - (void)setupScanView{
     UIImageView *visibleImageView = [[UIImageView alloc] init];
+    visibleImageView.hidden = YES;
     self.visibleImageView = visibleImageView;
     [self addSubview:visibleImageView];
     
     UIView *cover = [[UIView alloc] init];
-    cover.backgroundColor = kScanViewBackgroundColor;
     self.cover = cover;
     [self addSubview:cover];
     UIActivityIndicatorView *refrshView = [[UIActivityIndicatorView alloc] init];
     self.refrshView = refrshView;
     [refrshView startAnimating];
     [cover addSubview:refrshView];
+    self.backgroundColor = [UIColor blackColor];
 }
 
 - (void)setupCamera
@@ -129,7 +123,7 @@
         self.scanLineImageViewFrame = CGRectMake(x, y, w, h);
         CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateScanLineViewLayout)];
         self.displayLink = displayLink;
-        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+        self.scanLineImageView.hidden = YES;
     }
 }
 
@@ -200,6 +194,12 @@
     CGRect rectOfInterest = [self.preview metadataOutputRectOfInterestForRect:self.visibleRect];
     
     [self.output setRectOfInterest:rectOfInterest];
+    
+    self.scanLineImageView.hidden = NO;
+    self.visibleImageView.hidden = NO;
+    [self bringSubviewToFront:self.visibleImageView];
+    
+    [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 - (void)stopScan{
@@ -215,7 +215,6 @@
     CALayer *coverLayer = [[CALayer alloc] init];
     self.coverLayer = coverLayer;
     coverLayer.frame = self.bounds;
-    coverLayer.backgroundColor = [kScanViewBackgroundColor colorWithAlphaComponent:kBackgroundOpacity].CGColor;
     [self.layer addSublayer:coverLayer];
     
     UIBezierPath *outerBorderPath = [UIBezierPath bezierPathWithRect:self.bounds];
@@ -264,6 +263,7 @@
     _previewBackgroundColor = previewBackgroundColor;
     
     self.coverLayer.backgroundColor = _previewBackgroundColor.CGColor;
+    self.cover.backgroundColor = _previewBackgroundColor;
 }
 
 - (void)layoutSubviews
